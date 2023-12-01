@@ -39,6 +39,7 @@ a0: Auth0 {
 
 webhook {
   shape: cloud
+  tooltip: "Accepts incoming log event batches and forwards only errors"
 }
 
 slack: Slack {
@@ -55,7 +56,7 @@ log-stream1: |json
 log-stream1.class: code
 
 log-stream2: |json
-{ successful log event }
+{ failed log event }
 |
 log-stream2.class: code
 

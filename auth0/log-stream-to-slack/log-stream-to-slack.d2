@@ -1,14 +1,20 @@
+
 ###
 ## Styles
 #
 
-vars: {
-  code-styles: {
-    font-size: 12
-    stroke: "#ccc"
-    stroke-width: 1
+classes: {
+  code: {
+    style: {
+      font-size: 12
+      stroke: "#ccc"
+      stroke-width: 1
+    }
   }
 }
+
+direction: right
+
 
 ###
 ## Actors
@@ -27,6 +33,8 @@ app2: Application 2 {
 a0: Auth0 {
   shape: image
   icon: "https://identicons.dev/identicons/mono/svg/icon-auth0-authorization-server.svg"
+  width: 200
+  height: 200
 }
 
 webhook {
@@ -43,19 +51,13 @@ log-stream1: |json
   { failed log event },
   { successful log event }
 ]
-| {
-  style: {
-    ...${code-styles}
-  }
-}
+|
+log-stream1.class: code
 
 log-stream2: |json
 { successful log event }
-| {
-  style: {
-    ...${code-styles}
-  }
-}
+|
+log-stream2.class: code
 
 ###
 ## Diagram

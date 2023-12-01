@@ -1,0 +1,1 @@
+![](./log-stream-to-slack.svg)

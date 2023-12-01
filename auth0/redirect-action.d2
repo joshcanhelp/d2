@@ -1,0 +1,61 @@
+###
+## Styles
+#
+
+classes: {
+  container: {
+    label.near: bottom-left
+    icon.near: bottom-right
+    style: {
+      fill: "#f1f1f1"
+      stroke: "#f1f1f1"
+      font-size: 14
+    }
+  }
+}
+
+direction: right
+
+###
+## Actors
+#
+
+app: Customer\nApplication {
+  shape: image
+  icon: "https://identicons.dev/identicons/mono/svg/icon-web-app.svg"
+}
+
+auth0: Auth0 {
+  icon: "https://identicons.dev/identicons/mono/svg/icon-auth0-authorization-server.svg"
+  class: container
+
+  login: Login {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/svg/icon-login.svg"
+  }
+
+  actions: Actions {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/svg/icon-pipeline-b.svg"
+  }
+}
+
+service: External service {
+  class: container
+  icon: https://identicons.dev/identicons/gray/svg/icon-server.svg
+
+  prompt: Prompt {
+    shape: image
+    icon: "https://identicons.dev/identicons/gray/svg/icon-web-app.svg"
+  }
+}
+
+###
+## Diagram
+#
+
+app -> auth0.login: 1. Login
+auth0.login -> auth0.actions: 2. Successful login 
+auth0.actions -> service.prompt: 3. Redirect with state
+auth0.actions <- service.prompt: 4. Redirect with state
+auth0.actions -> app: 5. Callback

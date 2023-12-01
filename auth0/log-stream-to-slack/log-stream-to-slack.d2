@@ -1,0 +1,78 @@
+###
+## Styles
+#
+
+vars: {
+  code-styles: {
+    font-size: 12
+    stroke: "#ccc"
+    stroke-width: 1
+  }
+}
+
+###
+## Actors
+#
+
+app1: Application 1 {
+  shape: image
+  icon: "https://identicons.dev/identicons/mono/svg/icon-web-app.svg"
+}
+
+app2: Application 2 {
+  shape: image
+  icon: "https://identicons.dev/identicons/mono/svg/icon-web-app.svg"
+}
+
+a0: Auth0 {
+  shape: image
+  icon: "https://identicons.dev/identicons/mono/svg/icon-auth0-authorization-server.svg"
+}
+
+webhook {
+  shape: cloud
+}
+
+slack: Slack {
+  shape: image
+  icon: "https://icons.terrastruct.com/dev%2Fslack.svg"
+}
+
+log-stream1: |json
+[
+  { failed log event },
+  { successful log event }
+]
+| {
+  style: {
+    ...${code-styles}
+  }
+}
+
+log-stream2: |json
+{ successful log event }
+| {
+  style: {
+    ...${code-styles}
+  }
+}
+
+###
+## Diagram
+#
+
+app1 -> a0: Login A
+app1 <- a0: Error callback {
+  style: {
+    stroke: red
+  }
+}
+
+app2 -> a0: Login B
+app2 <- a0: Success callback {
+  style: {
+    stroke: green
+  }
+}
+
+a0 -- log-stream1 -> webhook -- log-stream2 -> slack

@@ -1,0 +1,150 @@
+
+style.fill: "#f1f1f1"
+direction: right
+
+title: A winning strategy {
+  shape: text
+  near: top-center
+  style: {
+    font-size: 55
+    italic: true
+  }
+}
+
+explanation: |js
+  // Some JavaScript
+  const doSomething = (param) => {
+    return param + "hi";
+  }
+|
+
+code: |js
+  ## I can do headers
+  - lists
+  - lists
+
+  And other normal markdown stuff [like links](https://auth0.com)
+|
+
+rectangle.shape: rectangle
+rectangle.style.3d: true
+square.shape: square
+square.style.multiple: true
+page.shape: page
+parallelogram.shape: parallelogram
+
+rectangle -- square <- page -> parallelogram
+
+document.shape: document
+cylinder.shape: cylinder
+
+cylinder <- document
+
+queue.shape: queue
+package.shape: package
+
+queue <-> package
+(queue <-> package)[0].style.stroke: red
+
+step.shape: step
+callout.shape: callout
+stored_data.shape: stored_data
+person.shape: person
+
+step <-> stored_data <-> person <-> callout
+
+diamond.shape: diamond
+oval.shape: oval
+circle.shape: circle
+hexagon.shape: hexagon
+cloud.shape: cloud
+
+diamond -- oval -- circle -- hexagon -- cloud
+
+connection1 -- connection2: Notation
+connection3 -> connection4
+connection5 <- connection6
+connection7 <-> connection8
+connection8.style.fill: "#ACE1AF"
+
+connection -> connection: Notation here
+
+cycle1 -> cycle2 -> cycle3
+cycle3 -> cycle1 : repeat
+
+# Containers
+server.process.dot.bing.home
+apartment.Bedroom.Bathroom -> office.Spare Room.Bathroom: Portal
+
+clouds: {
+  # Alternate labelling
+  label: The WHOLE CLOUD
+
+  aws: AWS {
+    # Reference the parent
+    _.style.fill: "#ACE1AF"
+
+    load_balancer -> api
+    api -> db
+  }
+  gcloud: Google {
+    style: {
+      stroke: pink
+      font-color: green
+      fill: pink
+    }
+    auth -> db
+  }
+
+  gcloud -> aws
+}
+
+server2: {
+  shape: image
+  # https://icons.terrastruct.com/
+  icon: https://icons.terrastruct.com/tech/022-server.svg
+}
+
+github: {
+  shape: image
+  icon: https://icons.terrastruct.com/dev/github.svg
+}
+
+server2 -> github
+
+my_table: {
+  shape: sql_table
+  # This is defined using the shorthand syntax for labels discussed in the containers section.
+  # But here it's for the type of a constraint.
+  # The id field becomes a map that looks like {type: int; constraint: primary_key}
+  id: int {constraint: primary_key}
+  last_updated: timestamp with time zone
+}
+
+# Sequence diagrams are D2 objects
+Office chatter: {
+  style.fill: "#f1f1f1"
+  shape: sequence_diagram
+  bob: Bobby
+  alice: Alice
+  awkward small talk: {
+    alice -> bob: uhm, hi
+    bob -> alice: oh, hello
+    icebreaker attempt: {
+      alice -> bob: what did you have for lunch?
+    }
+    unfortunate outcome: {
+      bob -> alice: that's personal
+    }
+  }
+}
+
+Spans: {
+  shape: sequence_diagram
+  style.fill: "#f1f1f1"
+  alice.t1 -> bob
+  alice.t2 -> bob.a
+  alice.t2.a -> bob.a
+  alice.t2.a <- bob.a
+  alice.t2 <- bob.a
+}

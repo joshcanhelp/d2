@@ -1,0 +1,124 @@
+# ##
+# # Styles
+#
+
+classes: {
+  container: {
+    label.near: bottom-left
+    icon.near: bottom-right
+    style: {
+      fill: "#dadada"
+      stroke: "#dadada"
+      opacity: 0.5
+      font-size: 20
+    }
+  }
+
+  database: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-database.png"
+    width: 120
+    height: 120
+  }
+  server: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-server.png"
+    width: 160
+    height: 160
+  }
+  pipeline: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-pipeline-png"
+  }
+  api: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-api.png"
+    width: 80
+    height: 80
+  }
+  webapp: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-web-app.png"
+  }
+  credentials: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-credential-application.png"
+    height: 80
+  }
+  module: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-customization.png"
+    height: 80
+  }
+  document: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-attributes.png"
+  }
+}
+
+direction: right
+
+# ##
+# # Actors
+#
+
+google: Google {
+  class: api
+}
+
+icloud: iCloud {
+  class: api
+}
+
+a: "" {
+  class: container
+
+  b: "Extract & load" {
+    class: container
+    style.shadow: true
+    
+    getter: Data Getter\n(local) {
+      class: server
+    }
+
+    keys: Key Store\n(env) {
+      class: credentials
+    }
+  }
+  
+  storej: JSON Store\n(local) {
+    class: database
+  }
+  
+  c: "Transform" {
+    class: container
+    style.shadow: true
+
+    process: Processor\n(local) {
+      class: server
+    }
+
+    recipes: Recipe{
+      class: module
+    }
+  }
+
+  stored: Obsidian {
+    class: document
+  }
+}
+
+# ##
+# # Diagram
+#
+
+a.b.keys -> a.b.getter
+a.b.getter -> google
+a.b.getter -> icloud
+a.b.getter -> a.storej
+a.storej -> icloud {
+  style.stroke-dash: 3
+}
+a.c.recipes -> a.c.process
+a.c.process -> a.storej
+a.c.process -> a.stored

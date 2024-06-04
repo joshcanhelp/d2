@@ -1,0 +1,124 @@
+# ##
+# # Styles
+#
+
+classes: {
+  container: {
+    label.near: bottom-left
+    icon.near: bottom-right
+    style: {
+      fill: "#dadada"
+      stroke: "#dadada"
+      opacity: 0.5
+      font-size: 20
+    }
+  }
+
+  database: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-database.png"
+    width: 120
+    height: 120
+  }
+  server: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-server.png"
+    width: 160
+    height: 160
+  }
+  api: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-api.png"
+    width: 120
+    height: 120
+  }
+  webapp: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-web-app.png"
+  }
+  credentials: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-credential-application.png"
+    height: 80
+  }
+  module: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-customization.png"
+    height: 80
+  }
+  document: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-attributes.png"
+  }
+}
+
+direction: right
+
+# ##
+# # Actors
+#
+
+api1: 3rd party API {
+  class: api
+}
+
+a: "" {
+  class: container
+
+  b: "Extract & Load" {
+    class: container
+    style.shadow: true
+    
+    getter: Data Getter\n(OSS) {
+      class: server
+    }
+    
+    keys: Key Store\n(BYO or paid) {
+      class: credentials
+    }
+  }
+  
+  storej: JSON Store\n(BYO or paid) {
+    class: database
+  }
+  
+  c: "Transform" {
+    class: container
+    style.shadow: true
+
+    recipes: Recipes\n(OSS) {
+      class: module
+    }
+
+    process: Processor\n(OSS) {
+      class: server
+    }
+  }
+
+  stored: Reports {
+    class: document
+  }
+
+  storer: Relational Store\n(BYO or paid) {
+    class: database
+  }
+
+  webui: Web UI (paid) {
+    class: webapp
+  }
+}
+
+# ##
+# # Diagram
+#
+
+a.b.keys -> a.b.getter
+a.b.getter -> api1 
+a.b.getter -> a.storej
+a.c.process -> a.storej
+a.c.recipes -> a.c.process
+a.c.process -> a.storer
+a.c.process -> a.stored
+a.c.process -> api1
+a.webui -> a.c.recipes
+a.webui -> a.storer

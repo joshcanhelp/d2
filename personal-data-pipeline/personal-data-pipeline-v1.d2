@@ -1,0 +1,120 @@
+# ##
+# # Styles
+#
+
+classes: {
+  container: {
+    label.near: bottom-left
+    icon.near: bottom-right
+    style: {
+      fill: "#dadada"
+      stroke: "#dadada"
+      opacity: 0.5
+      font-size: 20
+    }
+  }
+
+  database: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-database.png"
+    width: 120
+    height: 120
+  }
+  server: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-server.png"
+    width: 160
+    height: 160
+  }
+  api: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-api.png"
+    width: 120
+    height: 120
+  }
+  webapp: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-web-app.png"
+  }
+  credentials: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-credential-application.png"
+    height: 80
+  }
+  module: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-customization.png"
+    height: 80
+  }
+  document: {
+    shape: image
+    icon: "https://identicons.dev/identicons/mono/png/icon-attributes.png"
+  }
+}
+
+direction: right
+
+# ##
+# # Actors
+#
+
+api1: 3rd party API {
+  class: api
+}
+
+a: "Local machine" {
+  class: container
+
+  keys: Environment {
+    class: credentials
+  }
+
+  b: "Extract & Load" {
+    class: container
+    style.shadow: true
+    
+    getter: PDPL Data Getter {
+      class: server
+    }
+  }
+  
+  storej: JSON Store\n(BYO or paid) {
+    class: database
+  }
+  
+  c: "Transform" {
+    class: container
+    style.shadow: true
+
+    process: PDPL Processor {
+      class: server
+    }
+  }
+
+  d: "Output" {
+    class: container
+    style.shadow: true
+
+    stored: Documents {
+      class: document
+    }
+  
+    storer: Relational Store {
+      class: database
+    }
+  }
+
+  
+}
+
+# ##
+# # Diagram
+#
+
+a.keys -> a.b.getter
+a.keys -> a.c.process
+a.b.getter -> api1 
+a.b.getter -> a.storej
+a.c.process -> a.storej
+a.c.process -> a.d.storer
+a.c.process -> a.d.stored

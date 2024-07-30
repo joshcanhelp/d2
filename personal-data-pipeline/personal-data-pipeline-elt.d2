@@ -1,6 +1,13 @@
 ###
 ## Styles
 #
+vars: {
+  image-style: {
+    shape: image
+    height: 80
+    style.font-size: 20
+  }
+}
 
 classes: {
   container: {
@@ -9,25 +16,27 @@ classes: {
     style: {
       fill: "#f1f1f1"
       stroke: "#f1f1f1"
-      font-size: 16
     }
   }
   database: {
-    shape: image
-    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-database.png"
+    icon: "https://www.joshcanhelp.com/_images/identicons/icon-database.png"
+    ...${image-style}
   }
   server: {
-    shape: image
-    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-server.png"
+    icon: "https://www.joshcanhelp.com/_images/identicons/icon-server.png"
+    ...${image-style}
   }
   pipeline: {
-    shape: image
-    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-pipeline-b.png"
+    icon: "https://www.joshcanhelp.com/_images/identicons/icon-pipeline-b.png"
+    ...${image-style}
   }
   document: {
-    shape: image
-    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-attributes.png"
-    height: 80
+    icon: "https://www.joshcanhelp.com/_images/identicons/icon-attributes.png"
+    ...${image-style}
+  }
+  spa: {
+    icon: "https://www.joshcanhelp.com/_images/identicons/icon-spa.png"
+    ...${image-style}
   }
 }
 
@@ -60,7 +69,7 @@ extractor-2: Extractor {
 infra: Data Infrastructure {
   class: container
   
-  data-lake: Data Lake {
+  data-lake: Layer 1:\nRaw Data {
     class: database
   }
 
@@ -68,20 +77,28 @@ infra: Data Infrastructure {
     class: pipeline
   }
 
+  data-layer-1: Layer 2:\nProcessed Data {
+    class: database
+  }
+
+  data-layer-2: Layer 2:\nProcessed Data {
+    class: database
+  }
+
   report-1: Report {
     class: document
   }
 
-  report-2: Report {
-    class: document
+  report-2: Dashboard {
+    class: spa
   }
 
   report-3: Report {
     class: document
   }
 
-  report-4: Report {
-    class: document
+  report-4: Dashboard {
+    class: spa
   }
 }
 
@@ -95,7 +112,9 @@ data-source-3<-extractor-2
 extractor-1->infra.data-lake
 extractor-2->infra.data-lake
 infra.data-lake<-infra.transformer
-infra.transformer->infra.report-1
-infra.transformer->infra.report-2
-infra.transformer->infra.report-3
-infra.transformer->infra.report-4
+infra.transformer->infra.data-layer-1
+infra.transformer->infra.data-layer-2
+infra.data-layer-1->infra.report-1
+infra.data-layer-1->infra.report-2
+infra.data-layer-2->infra.report-3
+infra.data-layer-2->infra.report-4

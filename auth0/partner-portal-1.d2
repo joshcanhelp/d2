@@ -1,0 +1,18 @@
+direction: right 
+style.fill: transparent
+
+vars: {
+  d2-config: {
+    layout-engine: elk
+    theme-id: 300
+  }
+}
+
+App
+Auth0 {
+  style: {
+    font-size: 16
+  }
+}
+
+App -> Auth0.Login -> Auth0.Actions -> Auth0.Logs -> App

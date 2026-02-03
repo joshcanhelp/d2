@@ -1,0 +1,80 @@
+direction: right
+
+classes: {
+  factors: {
+    style.stroke: "#457B9D" 
+    style.font-color: "#457B9D"
+    style.fill: "#F1FAEE"
+  }
+  factor stroke: {
+    style.stroke-dash: 3
+    style.stroke: "#555"
+  }
+  deliverable {
+    style.3d: true
+    style.fill: "#A8DADC"
+    style.font-color: "#1D3557"
+    style.stroke: "#1D3557"
+  }
+}
+
+product: "SDK Product Strategy" {
+  class: deliverable
+}
+
+Existing SDKs -> product {
+  class: factor stroke
+}
+Existing SDKs.class: factors
+
+API docs -> product {
+  class: factor stroke
+}
+API docs.class: factors
+
+Customer feedback -> product {
+  class: factor stroke
+}
+Customer feedback.class: factors
+
+Implementation -> product {
+  class: factor stroke
+}
+Implementation.class: factors
+
+js-sdk: "In-browser JS SDK\narchitecture" {
+  class: deliverable
+}
+
+python-sdk: "Python web app SDK\narchitecture" {
+  class: deliverable
+}
+
+go-sdk: "Go web app SDK\narchitecture" {
+  class: deliverable
+}
+
+js-qs: "In-browser JS\nquickstart" {
+  class: deliverable
+}
+
+python-qs: "Python web app\nquickstart" {
+  class: deliverable
+}
+
+go-qs: "Go web app\nquickstart" {
+  class: deliverable
+}
+
+product -> js-sdk: "✅"
+js-sdk -> js-qs: "✅"
+js-qs -> Repo 1: "✅"
+Repo 1.class: deliverable
+product -> python-sdk: "✅"
+python-sdk -> python-qs: "✅"
+python-qs -> Repo 2: "✅"
+Repo 2.class: deliverable
+product -> go-sdk: "✅"
+go-sdk -> go-qs: "✅"
+go-qs -> Repo 3 : "✅"
+Repo 3.class: deliverable

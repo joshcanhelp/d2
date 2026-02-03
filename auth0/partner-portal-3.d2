@@ -1,0 +1,22 @@
+direction: right 
+style.fill: transparent
+
+vars: {
+  d2-config: {
+    layout-engine: elk
+    theme-id: 300
+  }
+}
+
+App
+Auth0 {
+  height: 300
+  style: {
+    font-size: 16
+  }
+}
+
+"Partner 1" -> "Integration 1" -> Auth0.Login
+"Partner 2" -> "Integration 2" -> Auth0.Post-Login
+"Partner 3" -> "Integration 3" -> Auth0.Logs
+App -> Auth0.Login -> Auth0.Post-Login -> Auth0.Logs -> App

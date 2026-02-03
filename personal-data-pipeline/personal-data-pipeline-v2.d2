@@ -1,0 +1,141 @@
+# ##
+# # Styles
+#
+
+classes: {
+  container: {
+    label.near: bottom-left
+    icon.near: bottom-right
+    style: {
+      fill: "#dadada"
+      stroke: "#dadada"
+      opacity: 0.5
+      font-size: 20
+    }
+  }
+
+  database: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-database.png"
+    width: 120
+    height: 120
+  }
+  server: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-server.png"
+    width: 160
+    height: 160
+  }
+  pipeline: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-pipeline-png"
+  }
+  api: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-api.png"
+    width: 80
+    height: 80
+  }
+  webapp: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-web-app.png"
+  }
+  credentials: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-credential-application.png"
+    height: 80
+  }
+  module: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-integrations-marketplace.png"
+    height: 80
+  }
+  document: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-attributes.png"
+  }
+  schema: {
+    shape: image
+    icon: "/Users/joshcanhelp/Code/josh-to-11/images/identicons/icon-advanced-options.png"
+    height: 80
+  }
+}
+
+direction: right
+
+# ##
+# # Actors
+#
+
+api: External API {
+  class: api
+}
+
+a: "" {
+  class: container
+
+  b: "Extract" {
+    class: container
+    style.shadow: true
+    
+    getter: Data Getter {
+      class: server
+    }
+
+    keys: Key Store\n(env) {
+      class: credentials
+    }
+  }
+
+  storej: JSON Store {
+    class: database
+  }
+
+  c: "Load" {
+    class: container
+    style.shadow: true
+    
+    loader: Data Loader {
+      class: server
+    }
+
+    schema: Schema {
+      class: schema
+    }
+  }
+
+  db: Relational Store {
+    class: database
+  }
+  
+  d: "Transform" {
+    class: container
+    style.shadow: true
+
+    process: Processor {
+      class: server
+    }
+
+    recipes: Recipe{
+      class: module
+    }
+  }
+
+  stored: Document {
+    class: document
+  }
+}
+
+# ##
+# # Diagram
+#
+
+a.b.keys -> a.b.getter
+a.b.getter -> api
+a.b.getter -> a.storej
+a.c.schema -> a.c.loader
+a.c.loader -> a.storej
+a.c.loader -> a.db
+a.d.recipes -> a.d.process
+a.d.process -> a.db
+a.d.process -> a.stored
